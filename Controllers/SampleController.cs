@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SqlExample.Models;
 using SqlExample.Services;
+using SqlExample.Services.Factory;
 using SqlExample.Services.SqlHelper;
 
 namespace SqlExample.Controllers

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Dapper;
 using SqlExample.Models;
+using SqlExample.Services.Factory;
 using SqlExample.Services.SqlHelper;
 
 namespace SqlExample.Services
