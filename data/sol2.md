@@ -12,7 +12,7 @@
 
 ## 缺點
 
-1. 我個人是非常難以理解為甚麼 Where 條件要這樣寫...(感覺像是理則學的範疇)
+1. 篩選條件一開始較難[理解](#explain)
 1. 若透過 model binding，則 SQL 語法要增加的預設值的判別，注意是要抓 dto binding 的值
 
 ## Memo
@@ -33,3 +33,13 @@ SELECT
    and ((isnull(@orderDateStart,'')='') or (t.OrderDate >= @orderDateStart))
    and ((isnull(@orderDateEnd,'')='') or (t.OrderDate <= @orderDateEnd))
 ```
+
+## Explain
+
+就以第一項篩選條件來解釋，假設目前系統資料庫內抓出來三筆資料，三筆的 employeeId 分別為 1,2,3
+
+篩選條件共有兩個部分(表單預設值、篩選條件規則)
+
+1. 第一個部分符合，則表示使用者未輸入該項條件，輸出該筆資料
+1. 第二個部份符合，則表示使用者有輸入條件且符合，輸出該筆資料
+1. 上述條件若都不符合，部輸出該筆資料
