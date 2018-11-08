@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace SqlExample.Services
+namespace SqlExample.Services.Factory
 {
     public class ConnectionFactory
     {

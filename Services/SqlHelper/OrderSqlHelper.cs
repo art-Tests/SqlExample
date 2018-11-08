@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using SqlExample.Models;
 using SqlExample.Services.CleanUp;
 
-namespace SqlExample.Services
+namespace SqlExample.Services.SqlHelper
 {
-    public class OrderSqlHelper
+    public class OrderSqlHelper : ISqlHelper
     {
         public string GetSqlCmd(SearchCondition sc)
         {
@@ -31,6 +31,8 @@ SELECT
             }
             return sqlCmd;
         }
+
+        public string GetName() => "OrderSqlHelper";
 
         private IEnumerable<ICleanUpSql> GetConditionList(SearchCondition sc)
         {

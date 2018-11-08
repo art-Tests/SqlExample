@@ -4,11 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Search Test For SQL Command Helper</h2>
+<h2>Search Test For SQL Command Helper <small>@ViewBag.HelperName</small></h2>
 <pre>
     @ViewBag.SqlCmd
 </pre>
-<form method="post">
+<form id="frm" method="post">
     <label>EmployeeId</label>
     <input type="text" name="EmployeeId" value="" /> <br />
     <label>OrderDate</label>
@@ -17,10 +17,21 @@
     <br />
     <label>ShipCity</label>
     <input type="text" name="ShipCity" value="Lyon" />
-
+    <br />
+    <label>
+        Helper Type 1
+        <input type="radio" name="HelperType" value="1" checked />
+    </label>
+    <label>
+        Helper Type 2
+        <input type="radio" name="HelperType" value="2" />
+    </label>
+    <input type="button" onclick="clearForm()" value="cleanup" />
     <input type="submit" value="Search" />
 </form>
-
+<div>
+    總筆數：@ViewBag.RecordCount
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -94,3 +105,11 @@
         }
     </tbody>
 </table>
+
+<script>
+    function clearForm() {
+        var $form = $("#frm");
+        $form.find(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+        $form.find(':checkbox, :radio').prop('checked', false);
+    }
+</script>

@@ -1,0 +1,29 @@
+using SqlExample.Models;
+
+namespace SqlExample.Services.SqlHelper
+{
+    internal class OrderSqlHelper2 : ISqlHelper
+    {
+        public string GetSqlCmd(SearchCondition sc)
+        {
+            return @"
+--declare @employeeId int = 3;
+--declare @orderDateStart datetime = '1996-07-05';
+--declare @orderDateEnd datetime = '1996-07-10';
+--declare @shipCity nvarchar(15) = 'Lyon';
+
+SELECT
+    [OrderID],[CustomerID],[EmployeeID],[OrderDate],[RequiredDate],[ShippedDate],[ShipVia]
+    ,[Freight],[ShipName],[ShipAddress],[ShipCity],[ShipRegion],[ShipPostalCode],[ShipCountry]
+  FROM [dbo].[Orders] (nolock) as t
+ Where 1=1
+   and ((@employeeId = 0) or (t.EmployeeID = @employeeId))
+   and ((isnull(@shipCity,'')='') or (t.ShipCity = @shipCity))
+   and ((isnull(@orderDateStart,'')='') or (t.OrderDate >= @orderDateStart))
+   and ((isnull(@orderDateEnd,'')='') or (t.OrderDate <= @orderDateEnd))
+";
+        }
+
+        public string GetName() => "OrderSqlHelper2";
+    }
+}

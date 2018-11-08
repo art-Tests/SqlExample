@@ -15,5 +15,8 @@ namespace SqlExample.Models
         public string ShipCity { get; set; }
         public DateTime? OrderDateStart { get; set; }
         public DateTime? OrderDateEnd { get; set; }
+
+        /// <summary> 決定用哪個SQLHelper </summary>
+        public int HelperType { get; set; }
     }
 }

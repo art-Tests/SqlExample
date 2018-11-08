@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Dapper;
 using SqlExample.Models;
+using SqlExample.Services.SqlHelper;
 
 namespace SqlExample.Services
 {
@@ -11,7 +12,7 @@ namespace SqlExample.Services
         /// </summary>
         public string SqlCmd { get; set; }
 
-        public IEnumerable<NorthWindOrder> QueryByCondition(OrderSqlHelper helper, SearchCondition sc)
+        public IEnumerable<NorthWindOrder> QueryByCondition(ISqlHelper helper, SearchCondition sc)
         {
             using (var conn = ConnectionFactory.GetConnection())
             {
