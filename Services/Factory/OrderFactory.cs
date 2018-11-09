@@ -9,12 +9,12 @@ namespace SqlExample.Services.Factory
             return new OrderService();
         }
 
-        public static ISqlHelper GetSqlHelper(int type)
+        public static ISqlHelper GetSqlHelper(string type)
         {
             switch (type)
             {
-                case 1: return new OrderSqlHelper();
-                case 2: return new OrderSqlHelper2();
+                case "OrderSqlHelper": return new OrderSqlHelper();
+                case "OrderSqlHelper2": return new OrderSqlHelper2();
                 default: return new OrderSqlHelper();
             }
         }

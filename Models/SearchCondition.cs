@@ -2,21 +2,17 @@ using System;
 
 namespace SqlExample.Models
 {
-    /// <summary>
-    /// 搜尋條件
-    /// </summary>
     public class SearchCondition
     {
         public bool IsSearchShipCity => !string.IsNullOrEmpty(ShipCity);
         public bool IsSearchEmployeeId => EmployeeId > 0;
         public bool IsSearchOrderDate => OrderDateStart != null && OrderDateEnd != null;
 
-        public int EmployeeId { get; set; }
-        public string ShipCity { get; set; }
-        public DateTime? OrderDateStart { get; set; }
-        public DateTime? OrderDateEnd { get; set; }
+        public int EmployeeId { get; set; } = 3;
+        public string ShipCity { get; set; } = "Lyon";
+        public string OrderDateStart { get; set; } = "1996-07-05";
+        public string OrderDateEnd { get; set; } = "1996-07-10";
 
-        /// <summary> 決定用哪個SQLHelper </summary>
-        public int HelperType { get; set; }
+        public string HelperType { get; set; } = "OrderSqlHelper2";
     }
 }

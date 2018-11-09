@@ -25,7 +25,10 @@ namespace SqlExample.Controllers
 
             var model = _orderService.QueryByCondition(orderHelper, sc);
             ViewBag.SqlCmd = _orderService.SqlCmd;
+
+            // 表單搜尋 keep 條件
             ViewBag.HelperName = orderHelper.GetName();
+            ViewBag.Condition = sc;
             ViewBag.RecordCount = model.Count();
             return View(model);
         }
