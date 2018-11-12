@@ -1,100 +1,19 @@
-﻿@model IEnumerable<NorthWindOrder>
-
-@{
-    ViewData["Title"] = "Index";
+﻿@{
     var sc = ViewBag.Condition as SearchCondition ?? new SearchCondition();
 }
+<input type="hidden" id="data" data-model="@ViewBag.Data" data-helper="@ViewBag.HelperName" data-condition="@ViewBag.Condition" data-sql="@ViewBag.SqlCmd" />
 
 <div id="app">
-
-    <comp-page-title></comp-page-title>
-    <comp-page-form></comp-page-form>
-
-    <div>
-        總筆數：@ViewBag.RecordCount
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CustomerID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ShipVia)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Freight)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ShipName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ShipAddress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ShipCity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ShipCountry)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OrderID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CustomerID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EmployeeID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OrderDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShipVia)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Freight)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShipName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShipAddress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShipCity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShipCountry)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <comp-page-title :helper="helper" :sqlcmd="sqlcmd"></comp-page-title>
+    <comp-page-form :condition="condition"></comp-page-form>
+    <comp-page-list :model="model"></comp-page-list>
 </div>
 
 <!--頁面標題-->
-<template id="tmpl-sql-demo">
+<template id="tmpl-sql-title">
     <div>
-        <h2>Search Test For SQL Command Helper <small> {{ helperName }} </small></h2>
-        <pre>
-            @ViewBag.SqlCmd
-        </pre>
+        <h2>Search Test For SQL Command Helper <small> {{ helper }} </small></h2>
+        <pre>{{ sqlcmd }}</pre>
     </div>
 </template>
 
@@ -103,21 +22,21 @@
     <div>
         <form id="frm" method="post">
             <label>EmployeeId</label>
-            <input type="text" name="EmployeeId"  v-model="EmployeeId" /> <br />
+            <input type="text" name="EmployeeId" v-model="condition.EmployeeId" /> <br />
             <label>OrderDate</label>
-            <input type="text" name="OrderDateStart"  v-model="OrderDateStart" />
-            <input type="text" name="OrderDateEnd"  v-model="OrderDateEnd" />
+            <input type="text" name="OrderDateStart" v-model="condition.OrderDateStart" />
+            <input type="text" name="OrderDateEnd" v-model="condition.OrderDateEnd" />
             <br />
             <label>ShipCity</label>
-            <input type="text" name="ShipCity"  v-model="ShipCity" />
+            <input type="text" name="ShipCity" v-model="condition.ShipCity" />
             <br />
             <label>
                 Helper Type 1
-                <input type="radio" name="HelperType" value="OrderSqlHelper" v-model="HelperType" />
+                <input type="radio" name="HelperType" value="OrderSqlHelper" v-model="condition.HelperType" />
             </label>
             <label>
                 Helper Type 2
-                <input type="radio" name="HelperType" value="OrderSqlHelper2" v-model="HelperType" />
+                <input type="radio" name="HelperType" value="OrderSqlHelper2" v-model="condition.HelperType" />
             </label>
             <input type="button" v-on:click="reset" value="cleanup" />
             <input type="submit" value="Search" />
@@ -125,41 +44,45 @@
     </div>
 </template>
 
+<template id="tmpl-sql-list">
+    <div>
+        總筆數：{{ model.length }}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>OrderId</th>
+                    <th>CustomerID</th>
+                    <th>EmployeeID</th>
+                    <th>OrderDate</th>
+                    <th>ShipVia</th>
+                    <th>Freight</th>
+                    <th>ShipName</th>
+                    <th>ShipAddress</th>
+                    <th>ShipCity</th>
+                    <th>ShipCountry</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, idx) in model">
+                    <td>{{ idx+1 }}</td>
+                    <td>{{ item.OrderID }}</td>
+                    <td>{{ item.CustomerID }}</td>
+                    <td>{{ item.EmployeeID }}</td>
+                    <td>{{ item.OrderDate }}</td>
+                    <td>{{ item.ShipVia }}</td>
+                    <td>{{ item.Freight }}</td>
+                    <td>{{ item.ShipName }}</td>
+                    <td>{{ item.ShipAddress }}</td>
+                    <td>{{ item.ShipCity }}</td>
+                    <td>{{ item.ShipCountry }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+
 @section scripts{
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
-    <script>
-
-        Vue.component('comp-page-title',{
-            data:function(){
-                return { helperName: '@ViewBag.HelperName' }
-            },
-            template:"#tmpl-sql-demo"
-        })
-
-        Vue.component('comp-page-form',{
-            data:function(){
-                return {
-                     EmployeeId : '@sc.EmployeeId',
-                     OrderDateStart:'@sc.OrderDateStart',
-                     OrderDateEnd:'@sc.OrderDateEnd',
-                     ShipCity:'@sc.ShipCity',
-                     HelperType:'@sc.HelperType'
-                }
-            },
-            methods:{
-                reset:function(){
-                    var $form = $("#frm")
-                    $form.find(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('')
-                    $form.find(':checkbox, :radio').prop('checked', false)
-                }
-            },
-            template:"#tmpl-sql-form"
-        })
-
-        var vm = new Vue({
-            el:"#app",
-            data:{}
-
-        })
-    </script>
+    <script src="~/js/sampleindex.js"></script>
 }

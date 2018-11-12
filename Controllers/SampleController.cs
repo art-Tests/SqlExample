@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SqlExample.Models;
 using SqlExample.Services;
 using SqlExample.Services.Factory;
@@ -14,6 +15,8 @@ namespace SqlExample.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Condition = JsonConvert.SerializeObject(new SearchCondition());
+
             var model = new List<NorthWindOrder>();
             return View(model);
         }
@@ -22,15 +25,12 @@ namespace SqlExample.Controllers
         public ActionResult Index(SearchCondition sc)
         {
             var orderHelper = OrderFactory.GetSqlHelper(sc.HelperType);
-
             var model = _orderService.QueryByCondition(orderHelper, sc);
-            ViewBag.SqlCmd = _orderService.SqlCmd;
-
-            // 表單搜尋 keep 條件
             ViewBag.HelperName = orderHelper.GetName();
-            ViewBag.Condition = sc;
-            ViewBag.RecordCount = model.Count();
-            return View(model);
+            ViewBag.Condition = JsonConvert.SerializeObject(sc);
+            ViewBag.Data = JsonConvert.SerializeObject(model);
+            ViewBag.SqlCmd = _orderService.SqlCmd;
+            return View();
         }
     }
 }

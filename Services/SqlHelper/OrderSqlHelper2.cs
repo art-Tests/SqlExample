@@ -7,7 +7,7 @@ namespace SqlExample.Services.SqlHelper
         public string GetSqlCmd(SearchCondition sc)
         {
             return @"
---declare @employeeId int = 3;
+--declare @employeeId nvarchar(10) = '3';
 --declare @orderDateStart datetime = '1996-07-05';
 --declare @orderDateEnd datetime = '1996-07-10';
 --declare @shipCity nvarchar(15) = 'Lyon';
@@ -17,7 +17,7 @@ SELECT
     ,[Freight],[ShipName],[ShipAddress],[ShipCity],[ShipRegion],[ShipPostalCode],[ShipCountry]
   FROM [dbo].[Orders] (nolock) as t
  Where 1=1
-   and ((@employeeId = 0) or (t.EmployeeID = @employeeId))
+   and ((isnull(@employeeId,'')='') or (t.EmployeeID = @employeeId))
    and ((isnull(@shipCity,'')='') or (t.ShipCity = @shipCity))
    and ((isnull(@orderDateStart,'')='') or (t.OrderDate >= @orderDateStart))
    and ((isnull(@orderDateEnd,'')='') or (t.OrderDate <= @orderDateEnd))
