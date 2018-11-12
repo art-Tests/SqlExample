@@ -6,6 +6,7 @@ using SqlExample.Models;
 using SqlExample.Services;
 using SqlExample.Services.Factory;
 using SqlExample.Services.SqlHelper;
+using SqlExample.ViewModels.Sample;
 
 namespace SqlExample.Controllers
 {
@@ -15,10 +16,16 @@ namespace SqlExample.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Condition = JsonConvert.SerializeObject(new SearchCondition());
+            var vm = new IndexViewModel
+            {
+                HelperName = string.Empty,
+                Condition = new SearchCondition(),
+                Data = new List<NorthWindOrder>(),
+                SqlCmd = _orderService.SqlCmd
+            };
+            ViewBag.Vm = JsonConvert.SerializeObject(vm);
 
-            var model = new List<NorthWindOrder>();
-            return View(model);
+            return View();
         }
 
         [HttpPost]
@@ -26,10 +33,16 @@ namespace SqlExample.Controllers
         {
             var orderHelper = OrderFactory.GetSqlHelper(sc.HelperType);
             var model = _orderService.QueryByCondition(orderHelper, sc);
-            ViewBag.HelperName = orderHelper.GetName();
-            ViewBag.Condition = JsonConvert.SerializeObject(sc);
-            ViewBag.Data = JsonConvert.SerializeObject(model);
-            ViewBag.SqlCmd = _orderService.SqlCmd;
+
+            var vm = new IndexViewModel
+            {
+                HelperName = orderHelper.GetName(),
+                Condition = sc,
+                Data = model,
+                SqlCmd = _orderService.SqlCmd
+            };
+
+            ViewBag.Vm = JsonConvert.SerializeObject(vm);
             return View();
         }
     }

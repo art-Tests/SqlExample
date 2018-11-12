@@ -1,86 +1,13 @@
-﻿@{
-    var sc = ViewBag.Condition as SearchCondition ?? new SearchCondition();
-}
+﻿
 <input type="hidden" id="data" data-model="@ViewBag.Data" data-helper="@ViewBag.HelperName" data-condition="@ViewBag.Condition" data-sql="@ViewBag.SqlCmd" />
 
+<input type="hidden" id="vm" data-vm="@ViewBag.Vm"/>
+
 <div id="app">
-    <comp-page-title :helper="helper" :sqlcmd="sqlcmd"></comp-page-title>
+    <comp-page-title :helper="vm.HelperName" :sqlcmd="vm.SqlCmd"></comp-page-title>
     <comp-page-form :condition="condition"></comp-page-form>
     <comp-page-list :model="model"></comp-page-list>
 </div>
-
-<!--頁面標題-->
-<template id="tmpl-sql-title">
-    <div>
-        <h2>Search Test For SQL Command Helper <small> {{ helper }} </small></h2>
-        <pre>{{ sqlcmd }}</pre>
-    </div>
-</template>
-
-<template id="tmpl-sql-form">
-    <!--頁面表單-->
-    <div>
-        <form id="frm" method="post">
-            <label>EmployeeId</label>
-            <input type="text" name="EmployeeId" v-model="condition.EmployeeId" /> <br />
-            <label>OrderDate</label>
-            <input type="text" name="OrderDateStart" v-model="condition.OrderDateStart" />
-            <input type="text" name="OrderDateEnd" v-model="condition.OrderDateEnd" />
-            <br />
-            <label>ShipCity</label>
-            <input type="text" name="ShipCity" v-model="condition.ShipCity" />
-            <br />
-            <label>
-                Helper Type 1
-                <input type="radio" name="HelperType" value="OrderSqlHelper" v-model="condition.HelperType" />
-            </label>
-            <label>
-                Helper Type 2
-                <input type="radio" name="HelperType" value="OrderSqlHelper2" v-model="condition.HelperType" />
-            </label>
-            <input type="button" v-on:click="reset" value="cleanup" />
-            <input type="submit" value="Search" />
-        </form>
-    </div>
-</template>
-
-<template id="tmpl-sql-list">
-    <div>
-        總筆數：{{ model.length }}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>OrderId</th>
-                    <th>CustomerID</th>
-                    <th>EmployeeID</th>
-                    <th>OrderDate</th>
-                    <th>ShipVia</th>
-                    <th>Freight</th>
-                    <th>ShipName</th>
-                    <th>ShipAddress</th>
-                    <th>ShipCity</th>
-                    <th>ShipCountry</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, idx) in model">
-                    <td>{{ idx+1 }}</td>
-                    <td>{{ item.OrderID }}</td>
-                    <td>{{ item.CustomerID }}</td>
-                    <td>{{ item.EmployeeID }}</td>
-                    <td>{{ item.OrderDate }}</td>
-                    <td>{{ item.ShipVia }}</td>
-                    <td>{{ item.Freight }}</td>
-                    <td>{{ item.ShipName }}</td>
-                    <td>{{ item.ShipAddress }}</td>
-                    <td>{{ item.ShipCity }}</td>
-                    <td>{{ item.ShipCountry }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</template>
 
 @section scripts{
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
