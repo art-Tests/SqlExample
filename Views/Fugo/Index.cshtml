@@ -1,0 +1,13 @@
+﻿
+
+<input type="hidden" id="vm" data-vm="@ViewBag.Vm"/>
+
+<div id="app">
+    <page-header :title="vm.Title" :sqlcmd="vm.SqlCmd"></page-header>
+    <page-form :condition="vm.Condition"></page-form>
+</div>
+
+@section scripts{
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+    <script src="~/js/Fugo/app.js" type="module"></script>
+}

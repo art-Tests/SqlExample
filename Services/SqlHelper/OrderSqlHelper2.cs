@@ -4,6 +4,8 @@ namespace SqlExample.Services.SqlHelper
 {
     internal class OrderSqlHelper2 : ISqlHelper
     {
+        public string GetSqlCmd(FugoSearchCondition sc) => string.Empty;
+
         public string GetSqlCmd(SearchCondition sc)
         {
             return @"
