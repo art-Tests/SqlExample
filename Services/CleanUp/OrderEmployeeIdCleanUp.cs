@@ -4,16 +4,17 @@ namespace SqlExample.Services.CleanUp
 {
     internal class OrderEmployeeIdCleanUp : ICleanUpSql
     {
-        private readonly SearchCondition _sc;
+        private readonly ISearchCondition _sc;
 
-        public OrderEmployeeIdCleanUp(SearchCondition sc)
+        public OrderEmployeeIdCleanUp(ISearchCondition sc)
         {
             _sc = sc;
         }
 
         public string CleanUpSql(string sqlCmd)
         {
-            return _sc.IsSearchEmployeeId
+            var value = _sc.GetValueByFieldName("EmployeeId");
+            return string.IsNullOrEmpty(value)
                 ? sqlCmd.Replace("--[@employeeId]--", string.Empty)
                 : sqlCmd;
         }

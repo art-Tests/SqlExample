@@ -6,7 +6,7 @@ namespace SqlExample.Services.SqlHelper
 {
     public class FugoSqlHelper : ISqlHelper
     {
-        public string GetSqlCmd(FugoSearchCondition sc)
+        public string GetSqlCmd(ISearchCondition sc)
         {
             var sqlCmd = @"
 SELECT ""TBA_011"".""CUSTOMERID"", ""TBA_010"".""CAMPAIGNTAG"",
@@ -34,14 +34,9 @@ SELECT ""TBA_011"".""CUSTOMERID"", ""TBA_010"".""CAMPAIGNTAG"",
             return sqlCmd;
         }
 
-        public string GetSqlCmd(SearchCondition sc)
-        {
-            return string.Empty;
-        }
-
         public string GetName() => "FugoSqlHelper";
 
-        private IEnumerable<ICleanUpSql> GetConditionList(FugoSearchCondition sc)
+        private IEnumerable<ICleanUpSql> GetConditionList(ISearchCondition sc)
         {
             yield return new FugoCustomerIdCleanUp(sc);
             yield return new FugoAssignDateCleanUp(sc);

@@ -4,21 +4,24 @@ namespace SqlExample.Services.CleanUp
 {
     internal class FugoAssignDateCleanUp : ICleanUpSql
     {
-        private readonly FugoSearchCondition _sc;
+        private readonly ISearchCondition _sc;
 
-        public FugoAssignDateCleanUp(FugoSearchCondition sc)
+        public FugoAssignDateCleanUp(ISearchCondition sc)
         {
             _sc = sc;
         }
 
         public string CleanUpSql(string sqlCmd)
         {
-            return !string.IsNullOrEmpty(_sc.AssignDateStart)
-                   && !string.IsNullOrEmpty(_sc.AssignDateEnd)
+            var start = _sc.GetValueByFieldName("AssignDateStart");
+            var end = _sc.GetValueByFieldName("AssignDateEnd");
+
+            return !string.IsNullOrEmpty(start)
+                   && !string.IsNullOrEmpty(end)
                 ? sqlCmd.Replace("--[@assignDateStart]--", string.Empty)
                     .Replace("--[@assignDateEnd]--", string.Empty)
-                    .Replace("@AssignDateStart", _sc.AssignDateStart)
-                    .Replace("@AssignDateEnd", _sc.AssignDateEnd)
+                    .Replace("@AssignDateStart", start)
+                    .Replace("@AssignDateEnd", end)
                 : sqlCmd;
         }
     }

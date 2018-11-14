@@ -4,9 +4,7 @@ namespace SqlExample.Services.SqlHelper
 {
     public interface ISqlHelper
     {
-        string GetSqlCmd(FugoSearchCondition sc);
-
-        string GetSqlCmd(SearchCondition sc);
+        string GetSqlCmd(ISearchCondition sc);
 
         string GetName();
     }

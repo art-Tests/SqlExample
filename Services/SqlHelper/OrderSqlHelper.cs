@@ -6,9 +6,7 @@ namespace SqlExample.Services.SqlHelper
 {
     public class OrderSqlHelper : ISqlHelper
     {
-        public string GetSqlCmd(FugoSearchCondition sc) => string.Empty;
-
-        public string GetSqlCmd(SearchCondition sc)
+        public string GetSqlCmd(ISearchCondition sc)
         {
             var sqlCmd = @"
 --declare @employeeId int = 3;
@@ -36,7 +34,7 @@ SELECT
 
         public string GetName() => "OrderSqlHelper";
 
-        private IEnumerable<ICleanUpSql> GetConditionList(SearchCondition sc)
+        private IEnumerable<ICleanUpSql> GetConditionList(ISearchCondition sc)
         {
             yield return new OrderShipCityCleanUp(sc);
             yield return new OrderEmployeeIdCleanUp(sc);

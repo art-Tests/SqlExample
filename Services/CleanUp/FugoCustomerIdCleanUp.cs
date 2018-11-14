@@ -4,18 +4,19 @@ namespace SqlExample.Services.CleanUp
 {
     internal class FugoCustomerIdCleanUp : ICleanUpSql
     {
-        private readonly FugoSearchCondition _sc;
+        private readonly ISearchCondition _sc;
 
-        public FugoCustomerIdCleanUp(FugoSearchCondition sc)
+        public FugoCustomerIdCleanUp(ISearchCondition sc)
         {
             _sc = sc;
         }
 
         public string CleanUpSql(string sqlCmd)
         {
-            return (!string.IsNullOrEmpty(_sc.CustomerId))
+            var value = _sc.GetValueByFieldName("CustomerId");
+            return !string.IsNullOrEmpty(value)
                 ? sqlCmd.Replace("--[@customerId]--", string.Empty)
-                .Replace("@CustomerId", _sc.CustomerId)
+                .Replace("@CustomerId", value)
                 : sqlCmd;
         }
     }
