@@ -4,9 +4,9 @@ using SqlExample.Services.CleanUp;
 
 namespace SqlExample.Services.SqlHelper
 {
-    public class OrderSqlHelper : ISqlHelper
+    public class OrderSqlHelper : BaseSqlHelper
     {
-        public string GetSqlCmd(ISearchCondition sc)
+        public override string GetSqlCmd(ISearchCondition sc)
         {
             var sqlCmd = @"
 --declare @employeeId int = 3;
@@ -31,8 +31,6 @@ SELECT
             }
             return sqlCmd;
         }
-
-        public string GetName() => "OrderSqlHelper";
 
         private IEnumerable<ICleanUpSql> GetConditionList(ISearchCondition sc)
         {

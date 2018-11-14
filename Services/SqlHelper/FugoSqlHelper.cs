@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using SqlExample.Models;
 using SqlExample.Services.CleanUp;
 
 namespace SqlExample.Services.SqlHelper
 {
-    public class FugoSqlHelper : ISqlHelper
+    public class FugoSqlHelper : BaseSqlHelper
     {
-        public string GetSqlCmd(ISearchCondition sc)
+        public override string GetSqlCmd(ISearchCondition sc)
         {
             var sqlCmd = @"
 SELECT ""TBA_011"".""CUSTOMERID"", ""TBA_010"".""CAMPAIGNTAG"",
@@ -18,7 +18,7 @@ SELECT ""TBA_011"".""CUSTOMERID"", ""TBA_010"".""CAMPAIGNTAG"",
        ""TBA_011"".""REMARK""
   FROM ""TBA_011"", ""TBA_010""
  WHERE (""TBA_011"".""CAMPAIGNLIST"" = ""TBA_010"".""CAMPAIGNLIST"")
-   and ((""TBA_011"".""STATUS"" not in (1202, 1203)))  -- 1202:¤£±µ¨ü¥~©I¦W³æ / 1203:¦W³æ¿ù»~
+   and ((""TBA_011"".""STATUS"" not in (1202, 1203)))  -- 1202:ä¸æŽ¥å—å¤–å‘¼åå–® / 1203:åå–®éŒ¯èª¤
 
    --[@customerId]--     and TBA_011.CustomerId = @CustomerId
    --[@assignDateStart]-- and TBA_011.ASSIGNEDDATE >= to_date('@AssignDateStart','yyyy/mm/dd')
@@ -33,8 +33,6 @@ SELECT ""TBA_011"".""CUSTOMERID"", ""TBA_010"".""CAMPAIGNTAG"",
             }
             return sqlCmd;
         }
-
-        public string GetName() => "FugoSqlHelper";
 
         private IEnumerable<ICleanUpSql> GetConditionList(ISearchCondition sc)
         {

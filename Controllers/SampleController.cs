@@ -31,12 +31,12 @@ namespace SqlExample.Controllers
         [HttpPost]
         public ActionResult Index(SearchCondition sc)
         {
-            var orderHelper = OrderFactory.GetSqlHelper(sc.HelperType);
-            var model = _orderService.QueryByCondition(orderHelper, sc);
+            var helper = OrderFactory.GetSqlHelper(sc.HelperType);
+            var model = _orderService.QueryByCondition(helper, sc);
 
             var vm = new IndexViewModel
             {
-                HelperName = orderHelper.GetName(),
+                HelperName = helper.GetName(),
                 Condition = sc,
                 Data = model,
                 SqlCmd = _orderService.SqlCmd

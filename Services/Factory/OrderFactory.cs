@@ -1,3 +1,6 @@
+using System;
+using SqlExample.Enum;
+using SqlExample.Models;
 using SqlExample.Services.SqlHelper;
 
 namespace SqlExample.Services.Factory
@@ -9,14 +12,11 @@ namespace SqlExample.Services.Factory
             return new OrderService();
         }
 
-        public static ISqlHelper GetSqlHelper(string type)
+        public static BaseSqlHelper GetSqlHelper(OrderHelperType type)
         {
-            switch (type)
-            {
-                case "OrderSqlHelper": return new OrderSqlHelper();
-                case "OrderSqlHelper2": return new OrderSqlHelper2();
-                default: return new OrderSqlHelper();
-            }
+            var instanceType = StrategyHelper.GetStrategyType(type);
+            var strategy = (BaseSqlHelper)(Activator.CreateInstance(instanceType));
+            return strategy;
         }
     }
 }

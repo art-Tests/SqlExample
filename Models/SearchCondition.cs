@@ -1,4 +1,6 @@
-using System;
+using System.Linq;
+using System.Reflection;
+using SqlExample.Enum;
 
 namespace SqlExample.Models
 {
@@ -9,6 +11,6 @@ namespace SqlExample.Models
         public string OrderDateStart { get; set; } = "1996-07-05";
         public string OrderDateEnd { get; set; } = "1996-07-10";
 
-        public string HelperType { get; set; } = "OrderSqlHelper2";
+        public OrderHelperType HelperType { get; set; } = OrderHelperType.OrderSqlHelper2;
     }
 }

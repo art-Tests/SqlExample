@@ -1,17 +1,16 @@
+using System;
+using SqlExample.Enum;
 using SqlExample.Services.SqlHelper;
 
 namespace SqlExample.Services.Factory
 {
     internal class FugoFactory
     {
-        public static ISqlHelper GetSqlHelper(string type)
+        public static BaseSqlHelper GetSqlHelper(FugoHelperType type)
         {
-            switch (type)
-            {
-                case "FugoSqlHelper": return new FugoSqlHelper();
-                // case "FugoSqlHelper2": return new FugoSqlHelper2();
-                default: return new FugoSqlHelper();
-            }
+            var instanceType = StrategyHelper.GetStrategyType(type);
+            var strategy = (BaseSqlHelper)(Activator.CreateInstance(instanceType));
+            return strategy;
         }
     }
 }

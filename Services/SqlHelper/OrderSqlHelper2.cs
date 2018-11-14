@@ -2,9 +2,9 @@ using SqlExample.Models;
 
 namespace SqlExample.Services.SqlHelper
 {
-    internal class OrderSqlHelper2 : ISqlHelper
+    internal class OrderSqlHelper2 : BaseSqlHelper
     {
-        public string GetSqlCmd(ISearchCondition sc)
+        public override string GetSqlCmd(ISearchCondition sc)
         {
             return @"
 --declare @employeeId nvarchar(10) = '3';
@@ -23,7 +23,5 @@ SELECT
    and ((isnull(@orderDateEnd,'')='') or (t.OrderDate <= @orderDateEnd))
 ";
         }
-
-        public string GetName() => "OrderSqlHelper2";
     }
 }

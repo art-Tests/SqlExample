@@ -1,16 +1,16 @@
 export default {
-  props: ["condition"],
-  methods: {
-    reset: function() {
-      var $form = $("#frm");
-      $form
-        .find(":input")
-        .not(":button, :submit, :reset, :hidden, :checkbox, :radio")
-        .val("");
-      $form.find(":checkbox, :radio").prop("checked", false);
-    }
-  },
-  template: `
+    props: ["condition"],
+    methods: {
+        reset: function () {
+            var $form = $("#frm");
+            $form
+                .find(":input")
+                .not(":button, :submit, :reset, :hidden, :checkbox, :radio")
+                .val("");
+            $form.find(":checkbox, :radio").prop("checked", false);
+        }
+    },
+    template: `
     <div>
         <form id="frm" method="post">
             <label>EmployeeId</label>
@@ -24,11 +24,11 @@ export default {
             <br />
             <label>
                 Helper Type 1
-                <input type="radio" name="HelperType" value="OrderSqlHelper" v-model="condition.HelperType" />
+                <input type="radio" name="HelperType" value="1" v-model="condition.HelperType" />
             </label>
             <label>
                 Helper Type 2
-                <input type="radio" name="HelperType" value="OrderSqlHelper2" v-model="condition.HelperType" />
+                <input type="radio" name="HelperType" value="2" v-model="condition.HelperType" />
             </label>
             <input type="button" v-on:click="reset" value="cleanup" />
             <input type="submit" value="Search" />
