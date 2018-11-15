@@ -1,7 +1,5 @@
-export default {
-  props: ["model"],
-  template: `
-      <div>
+<template>
+    <div>
         總筆數：{{ model.length }}
         <table class="table">
             <thead>
@@ -20,7 +18,7 @@ export default {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, idx) in model">
+                <tr v-for="(item, idx) in model" :key="idx">
                     <td>{{ idx+1 }}</td>
                     <td>{{ item.OrderID }}</td>
                     <td>{{ item.CustomerID }}</td>
@@ -35,5 +33,12 @@ export default {
                 </tr>
             </tbody>
         </table>
-    </div>`
-};
+    </div>
+</template>
+
+<script>
+    export default {
+      props: ["model"]
+    };
+</script>
+

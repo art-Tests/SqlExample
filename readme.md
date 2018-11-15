@@ -82,3 +82,50 @@ Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=northwind;Persist Security In
 npm init -y
 npm install webpack webpack-cli --save-dev
 ```
+
+設置 webpack 設定檔，因為採用 Vue，所以必備的套件也需要安裝，此處節錄 package.json 依賴套件
+
+```javascript
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.1",
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  },
+```
+
+因為頁面有很多頁，所以進入點為多個，設定也要調整
+
+```javascript
+module.exports = {
+  //... ...
+  context: path.resolve(__dirname, "src"),
+  entry: {
+    Fugo: "./page/Fugo/app.js",
+    Sample: "./page/Sample/app.js"
+  },
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "wwwroot/dist")
+  }
+  //... ...
+};
+```
+
+在 html 內引用
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+<script src="~/dist/Sample.bundle.js"></script>
+```
+
+執行建置指令(設定指令於 npm script)
+
+```
+npm build:prod
+npm build:dev
+```

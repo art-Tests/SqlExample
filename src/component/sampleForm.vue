@@ -1,16 +1,4 @@
-export default {
-    props: ["condition"],
-    methods: {
-        reset: function () {
-            var $form = $("#frm");
-            $form
-                .find(":input")
-                .not(":button, :submit, :reset, :hidden, :checkbox, :radio")
-                .val("");
-            $form.find(":checkbox, :radio").prop("checked", false);
-        }
-    },
-    template: `
+<template>
     <div>
         <form id="frm" method="post">
             <label>EmployeeId</label>
@@ -34,5 +22,20 @@ export default {
             <input type="submit" value="Search" />
         </form>
     </div>
-  `
-};
+</template>
+
+<script>
+    export default {
+      props: ["condition"],
+      methods: {
+        reset: function() {
+          var $form = $("#frm");
+          $form
+            .find(":input")
+            .not(":button, :submit, :reset, :hidden, :checkbox, :radio")
+            .val("");
+          $form.find(":checkbox, :radio").prop("checked", false);
+        }
+      }
+    };
+</script>

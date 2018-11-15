@@ -1,6 +1,6 @@
 // 引用組件
-import pageHeader from "../../component/PageHeader.js";
-import pageForm from "../../component/PageForm.js";
+import pageHeader from "../../component/PageHeader.vue";
+import pageForm from "../../component/PageForm.vue";
 
 new Vue({
   el: "#app",

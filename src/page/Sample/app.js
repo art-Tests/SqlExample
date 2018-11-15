@@ -1,13 +1,15 @@
+// import Vue from "vue";
+
 // 引用組件
-import sampleTitle from "./sampleTitle.js";
-import sampleForm from "./sampleForm.js";
-import sampleList from "./sampleList.js";
+import pageHeader from "../../component/PageHeader.vue";
+import sampleForm from "../../component/sampleForm.vue";
+import sampleList from "../../component/sampleList.vue";
 
 new Vue({
   el: "#app",
   // 註冊組件
   components: {
-    "comp-page-title": sampleTitle,
+    "page-header": pageHeader,
     "comp-page-form": sampleForm,
     "comp-page-list": sampleList
   },

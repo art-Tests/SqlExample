@@ -4,12 +4,12 @@
 <input type="hidden" id="vm" data-vm="@ViewBag.Vm"/>
 
 <div id="app">
-    <comp-page-title :helper="vm.HelperName" :sqlcmd="vm.SqlCmd"></comp-page-title>
+    <page-header :title="vm.HelperName" :sqlcmd="vm.SqlCmd"></page-header>
     <comp-page-form :condition="condition"></comp-page-form>
     <comp-page-list :model="model"></comp-page-list>
 </div>
 
 @section scripts{
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
-    <script src="~/js/Sample/app.js" type="module"></script>
+    <script src="~/dist/Sample.bundle.js"></script>
 }

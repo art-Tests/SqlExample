@@ -14,7 +14,7 @@ namespace SqlExample.Services.CleanUp
         public string CleanUpSql(string sqlCmd)
         {
             var value = _sc.GetValueByFieldName("EmployeeId");
-            return string.IsNullOrEmpty(value)
+            return !string.IsNullOrEmpty(value)
                 ? sqlCmd.Replace("--[@employeeId]--", string.Empty)
                 : sqlCmd;
         }
