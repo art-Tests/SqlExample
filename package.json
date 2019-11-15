@@ -12,11 +12,17 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-vue-app": "^2.0.0",
     "css-loader": "^1.0.1",
+    "jest": "^23.6.0",
+    "jest-vue": "^0.8.2",
+    "vue-jest": "^3.0.0",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
+    "wallaby-vue-compiler": "^1.0.3",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   },
@@ -24,11 +30,25 @@
     "build:prod": "webpack --config webpack.config.js --mode=production",
     "build:dev": "webpack --config webpack.config.js --mode=development --devtool=source-map",
     "watch": "webpack --config webpack.config.js --watch",
-    "dev": "webpack-dev-server --mode=development"
+    "dev": "webpack-dev-server --mode=development",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "ssh://git@gitlab.art:10022/dotnetcore/sqlexample.git"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue"
+    },
+    "moduleNameMapper": {
+      "@/(.*)$": "<rootDir>/src/$1"
+    }
   },
   "keywords": [],
   "author": "",
